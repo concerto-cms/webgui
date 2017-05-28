@@ -1,3 +1,8 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar color="primary">
+  Concerto CMS
+  <span class="app-toolbar-filler"></span>
+</md-toolbar>
+<main class="app-content">
+  <md-spinner class="app-spinner" *ngIf="!auth.isAuthenticated()"></md-spinner>
+  <router-outlet [hidden]="!auth.isAuthenticated()"></router-outlet>
+</main>

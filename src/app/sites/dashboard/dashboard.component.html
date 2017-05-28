@@ -1,0 +1,13 @@
+<md-spinner class="app-spinner" *ngIf="!isInitialized"></md-spinner>
+<md-card *ngIf="isInitialized">
+    <md-card-content>
+        <md-nav-list>
+            <ng-container *ngFor="let site of ($sites | async).items">
+                <a md-list-item [routerLink]="[site._id]">
+                    <i class="material-icons" md-list-icon>description</i>
+                    <h4 md-line><strong>{{site.name}}</strong></h4>
+                </a>
+            </ng-container>
+        </md-nav-list>
+    </md-card-content>
+</md-card>
