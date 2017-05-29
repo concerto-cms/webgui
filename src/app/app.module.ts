@@ -15,6 +15,7 @@ import {rootReducer} from './store';
 import thunk from 'redux-thunk';
 import {createLogger} from 'redux-logger';
 import 'rxjs/add/operator/debounce';
+
 @NgModule({
     declarations: [
         AppComponent
