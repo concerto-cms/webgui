@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SitesService} from '../../shared/domain/sites.service';
 import {ISitesListState} from '../../store/sites/sitesList';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,16 +12,24 @@ export class DashboardComponent implements OnInit {
     public $sites;
     isInitialized = false;
   constructor(
-      sites: SitesService,
+      private sites: SitesService,
+      private router: Router,
   ) {
       this.$sites = sites.getAvailableSites();
       this.$sites.subscribe((result: ISitesListState) => {
-          console.log(result);
-          this.isInitialized = !result.isLoading;
-          console.log(this.isInitialized);
+          this.isInitialized = !result.isLoading || result.items.length > 0;
       });
+      router.events
+//      .filter(event => event instanceof NavigationEnd)
+      .subscribe(event => {
+          console.log(event);
+      });
+
   }
 
+  refresh() {
+      this.sites.getAvailableSites();
+  }
   ngOnInit() {
   }
 

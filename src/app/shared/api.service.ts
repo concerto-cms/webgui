@@ -16,9 +16,7 @@ export class ApiService {
   }
   get(url) {
     return this.http.get(this.baseUrl + url, {
-      headers: new Headers({
-        authorization: `bearer ${this.auth.getJWT()}`,
-      })
+      headers: this.getHeaders(),
     });
 
   }

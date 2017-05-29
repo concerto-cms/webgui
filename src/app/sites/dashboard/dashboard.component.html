@@ -1,6 +1,7 @@
 <md-spinner class="app-spinner" *ngIf="!isInitialized"></md-spinner>
 <md-card *ngIf="isInitialized">
     <md-card-content>
+        <md-progress-bar mode="indeterminate" *ngIf="($sites | async).isLoading"></md-progress-bar>
         <md-nav-list>
             <ng-container *ngFor="let site of ($sites | async).items">
                 <a md-list-item [routerLink]="[site._id]">
@@ -9,5 +10,6 @@
                 </a>
             </ng-container>
         </md-nav-list>
+        <button md-button (click)="refresh()">Refresh</button>
     </md-card-content>
 </md-card>
