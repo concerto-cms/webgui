@@ -10,6 +10,8 @@ import {SitesService} from './shared/domain/sites.service';
 })
 export class AppComponent {
     title = 'Concerto CMS';
+    showMenu = false;
+    role: string;
     constructor(public auth: AuthService,
                 sites: SitesService,
                 router: Router,) {
@@ -23,7 +25,15 @@ export class AppComponent {
             .map((params) => params.siteID ? params.siteID : null)
             .subscribe(id => sites.setActiveSite(id));
         sites.getActiveSite().subscribe(site => {
-            this.title = site ? site.name : 'Concerto CMS';
+            if (!site) {
+                this.role = null;
+                this.title = 'Concerto CMS';
+                this.showMenu = false;
+                return;
+            }
+            this.showMenu = site.role !== 'EDITOR';
+            this.role = site.role;
+            this.title = site.name;
         });
     }
 }

@@ -1,6 +1,11 @@
 <md-toolbar color="primary">
   {{ title }}
   <span class="app-toolbar-filler"></span>
+    <nav *ngIf="showMenu">
+        <a md-button href="#">Edit</a>
+        <a md-button href="#" *ngIf="['DEVELOPER', 'OWNER'].includes(role)" class="active">Develop</a>
+        <a md-button href="#" *ngIf="role === 'OWNER'">Manage</a>
+    </nav>
 </md-toolbar>
 <main class="app-content">
   <md-spinner class="app-spinner" *ngIf="!auth.isAuthenticated()"></md-spinner>
