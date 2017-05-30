@@ -42,7 +42,10 @@ export class SitesService {
 
     getSite(id) {
         this.ngRedux.dispatch({
-            type: request(GET_SITE)
+            type: request(GET_SITE),
+            meta: {
+                id,
+            },
         });
         this.api.get(`/sites/${id}`)
             .map(result => {
@@ -51,14 +54,26 @@ export class SitesService {
             .subscribe(
                 result => this.ngRedux.dispatch({
                     type: resolve(GET_SITE),
+                    meta: { id },
                     payload: result
                 }),
                 err => this.ngRedux.dispatch({
                     type: reject(GET_SITE),
+                    meta: { id },
                     error: err,
                 })
             );
-        return this.getSitesListStream();
+        return this.ngRedux
+            .select('sites')
+            .map((state: ISitesState) => state.sitesList.items)
+            .map(items => {
+                for (let site of items) {
+                    if (site._id === id) {
+                        return site;
+                    }
+                }
+                return null;
+            });
     }
     getSitesListStream() {
         return this.ngRedux

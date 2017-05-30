@@ -1,3 +1,7 @@
-<p>
-  site works!
-</p>
+<md-spinner class="app-spinner" *ngIf="!isInitialized"></md-spinner>
+<md-card *ngIf="isInitialized">
+    <md-progress-bar mode="indeterminate" *ngIf="($site | async).isLoading"></md-progress-bar>
+    <p>
+        site works!
+    </p>
+</md-card>

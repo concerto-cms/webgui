@@ -12,6 +12,7 @@ export class AppComponent {
     title = 'Concerto CMS';
     showMenu = false;
     role: string;
+    site;
     constructor(public auth: AuthService,
                 sites: SitesService,
                 router: Router,) {
@@ -25,12 +26,14 @@ export class AppComponent {
             .map((params) => params.siteID ? params.siteID : null)
             .subscribe(id => sites.setActiveSite(id));
         sites.getActiveSite().subscribe(site => {
-            if (!site) {
+            if (!site || !site.name || !site.role) {
                 this.role = null;
                 this.title = 'Concerto CMS';
                 this.showMenu = false;
+                this.site = null;
                 return;
             }
+            this.site = site;
             this.showMenu = site.role !== 'EDITOR';
             this.role = site.role;
             this.title = site.name;

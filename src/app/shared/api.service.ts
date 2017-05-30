@@ -15,9 +15,10 @@ export class ApiService {
 
   }
   get(url) {
-    return this.http.get(this.baseUrl + url, {
-      headers: this.getHeaders(),
-    });
+    return this.http
+        .get(this.baseUrl + url, {
+          headers: this.getHeaders(),
+        });
 
   }
   private getHeaders() {

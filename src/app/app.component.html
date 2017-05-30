@@ -2,9 +2,10 @@
   {{ title }}
   <span class="app-toolbar-filler"></span>
     <nav *ngIf="showMenu">
-        <a md-button href="#">Edit</a>
-        <a md-button href="#" *ngIf="['DEVELOPER', 'OWNER'].includes(role)" class="active">Develop</a>
-        <a md-button href="#" *ngIf="role === 'OWNER'">Manage</a>
+        <a md-button [routerLink]="[site._id,'edit']">Edit</a>
+        <a md-button [routerLink]="[site._id,'develop']" *ngIf="['DEVELOPER', 'OWNER'].includes(role)">Develop</a>
+        <a md-button [routerLink]="[site._id,'manage']" *ngIf="role === 'OWNER'">Manage</a>
+        <a md-button routerLink="/">Dashboard</a>
     </nav>
 </md-toolbar>
 <main class="app-content">
