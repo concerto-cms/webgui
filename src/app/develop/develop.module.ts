@@ -1,13 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Routes, RouterModule} from '@angular/router';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
-import { DevelopRoutingModule } from './develop-routing.module';
+const routes: Routes = [
+    {path: ':siteID/develop', component: DashboardComponent},
+];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DevelopRoutingModule
-  ],
-  declarations: []
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+    ],
+    exports: [
+        RouterModule,
+    ],
+    declarations: [DashboardComponent]
 })
-export class DevelopModule { }
+export class DevelopModule {
+}

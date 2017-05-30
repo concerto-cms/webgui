@@ -15,6 +15,9 @@ import {rootReducer} from './store';
 import thunk from 'redux-thunk';
 import {createLogger} from 'redux-logger';
 import 'rxjs/add/operator/debounce';
+import {ManageModule} from './manage/manage.module';
+import {EditModule} from './edit/edit.module';
+import {DevelopModule} from './develop/develop.module';
 
 @NgModule({
     declarations: [
@@ -29,6 +32,9 @@ import 'rxjs/add/operator/debounce';
         HttpModule,
         SharedModule,
         SitesModule,
+        ManageModule,
+        EditModule,
+        DevelopModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
