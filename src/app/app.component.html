@@ -5,10 +5,16 @@
         <a md-button [routerLink]="[site._id,'edit']">Edit</a>
         <a md-button [routerLink]="[site._id,'develop']" *ngIf="['DEVELOPER', 'OWNER'].includes(role)">Develop</a>
         <a md-button [routerLink]="[site._id,'manage']" *ngIf="role === 'OWNER'">Manage</a>
-        <a md-button routerLink="/">Dashboard</a>
     </nav>
+    <md-menu #appMenu="mdMenu">
+        <button md-menu-item routerLink="/">Dashboard</button>
+        <button md-menu-item (click)="logout()"> Logout </button>
+    </md-menu>
+    <div style="margin-left: 15px; font-size: 14px;">{{profile.name}}</div>
+    <button md-icon-button [mdMenuTriggerFor]="appMenu">
+        <md-icon>more_vert</md-icon>
+    </button>
 </md-toolbar>
 <main class="app-content">
-  <md-spinner class="app-spinner" *ngIf="!auth.isAuthenticated()"></md-spinner>
-  <router-outlet [hidden]="!auth.isAuthenticated()"></router-outlet>
+  <router-outlet></router-outlet>
 </main>

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {AuthService} from './shared/auth.service';
 import {NavigationEnd, Router} from '@angular/router';
 import {SitesService} from './shared/domain/sites.service';
+import {AuthService} from './shared/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -13,13 +13,13 @@ export class AppComponent {
     showMenu = false;
     role: string;
     site;
-    constructor(public auth: AuthService,
-                sites: SitesService,
-                router: Router,) {
-        auth.handleAuthentication();
-        if (!auth.isAuthenticated()) {
-            auth.login();
-        }
+    profile;
+    constructor(
+        sites: SitesService,
+        router: Router,
+        private auth: AuthService,
+    ) {
+        this.profile = auth.getProfile();
         router.events
             .filter(event => event instanceof NavigationEnd)
             .map(() => router.routerState.root.firstChild.snapshot.params)
@@ -38,5 +38,8 @@ export class AppComponent {
             this.role = site.role;
             this.title = site.name;
         });
+    }
+    logout() {
+        this.auth.logout();
     }
 }
