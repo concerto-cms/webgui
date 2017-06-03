@@ -24,6 +24,7 @@ export class AppComponent {
             .filter(event => event instanceof NavigationEnd)
             .map(() => router.routerState.root.firstChild.snapshot.params)
             .map((params) => params.siteID ? params.siteID : null)
+            .distinctUntilChanged()
             .subscribe(id => sites.setActiveSite(id));
         sites.getActiveSite().subscribe(site => {
             if (!site || !site.name || !site.role) {

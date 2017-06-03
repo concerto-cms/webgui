@@ -1,3 +1,25 @@
-<p>
-  Manage dashboard works!
-</p>
+<md-tab-group>
+    <md-tab label="Site details">
+        <md-card>
+            <md-card-content>
+                <form #detailsForm="ngForm" (ngSubmit)="save()">
+                    <md-input-container style="width: 100%">
+                        <input mdInput placeholder="Site name" name="name" [(ngModel)]="site.name">
+                    </md-input-container>
+                    <button md-raised-button color="primary">Save</button>
+                </form>
+            </md-card-content>
+        </md-card>
+    </md-tab>
+    <md-tab label="Team">
+        <md-list>
+            <md-list-item *ngFor="let user of site.users">
+                - {{user.userId}} <em>({{user.role}})</em>
+            </md-list-item>
+        </md-list>
+    </md-tab>
+    <md-tab label="Danger">
+        <h3>Delete website</h3>
+        <button md-raised-button color="warn" (click)="delete()">Delete</button>
+    </md-tab>
+</md-tab-group>

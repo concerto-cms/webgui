@@ -3,6 +3,7 @@ import {Headers, Http} from '@angular/http';
 import {AuthService} from './auth.service';
 
 import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ApiService {
@@ -20,6 +21,24 @@ export class ApiService {
           headers: this.getHeaders(),
         });
 
+  }
+  put(url, content) {
+      return this.http
+          .put(this.baseUrl + url, content, {
+              headers: this.getHeaders(),
+          }).toPromise();
+  }
+  post(url, content) {
+      return this.http
+          .post(this.baseUrl + url, content, {
+              headers: this.getHeaders(),
+          }).toPromise();
+  }
+  delete(url) {
+      return this.http
+          .delete(this.baseUrl + url, {
+              headers: this.getHeaders(),
+          }).toPromise();
   }
   private getHeaders() {
     return new Headers({

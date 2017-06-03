@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SitesService} from '../../shared/domain/sites.service';
 import {ISitesListState} from '../../store/sites/sitesList';
+import {MdDialog} from '@angular/material';
+import {CreateSiteComponent} from '../create-site/create-site.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,7 +14,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     isInitialized = false;
     sitesSub;
 
-    constructor(private sites: SitesService,) {
+    constructor(
+        private sites: SitesService,
+        private dialog: MdDialog,
+    ) {
 
     }
 
@@ -29,6 +34,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.sitesSub.unsubscribe();
+    }
+    openCreateDialog() {
+        const dialog = this.dialog.open(CreateSiteComponent, {
+
+        });
     }
 
 }

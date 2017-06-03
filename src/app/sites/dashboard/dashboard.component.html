@@ -2,13 +2,13 @@
 <md-card *ngIf="isInitialized && ($sites | async).items.length == 0" align-center>
     <md-card-subtitle>You have no sites yet!</md-card-subtitle>
     <md-card-content>
-        <button md-raised-button color="primary">Create your first website</button>
+        <button md-raised-button color="primary" (click)="openCreateDialog()">Create your first website</button>
     </md-card-content>
 </md-card>
 <div *ngIf="isInitialized && ($sites | async).items.length > 0">
 
 <p align-right>
-    <button mdTooltip="Create a new site" md-fab><md-icon>add</md-icon></button>
+    <button mdTooltip="Create a new site" md-fab (click)="openCreateDialog()"><md-icon>add</md-icon></button>
 </p>
 <md-card>
     <md-card-content>

@@ -1,6 +1,6 @@
 import { request, reject, resolve } from 'redux-promised';
-import {GET_SITES, GET_SITE} from '../actionTypes';
-
+import {GET_SITES, GET_SITE, UPDATE_SITE, CREATE_SITE, DELETE_SITE} from '../actionTypes';
+import { getIndexById } from '../../shared/arrayUtils';
 export interface ISitesListState {
     items: any[],
     isLoading: boolean,
@@ -10,16 +10,8 @@ export interface ISitesListState {
 const containsType = (action, type) => {
     return [request(type), reject(type), resolve(type)].includes(action.type);
 };
-const getIndexById = (list, id) => {
-    console.log(list, id);
-    for (let item of list) {
-        if (item._id === id) {
-            return list.indexOf(item);
-        }
-    }
-    return null;
-};
-const handleGetSitesList = (state, action) => {
+
+const getSitesList = (state, action) => {
     switch (action.type) {
         case request(GET_SITES):
             return Object.assign({}, state, {
@@ -42,7 +34,7 @@ const handleGetSitesList = (state, action) => {
             return state;
     }
 };
-const handleGetSite = (state, action) => {
+const getSite = (state, action) => {
     const index = getIndexById(state.items, action.meta.id);
     let item = index !== null ? state.items[index] : {_id: action.meta.id};
 
@@ -73,6 +65,54 @@ const handleGetSite = (state, action) => {
     }
     return newState;
 };
+const updateSite = (state, action) => {
+    const index = getIndexById(state.items, action.meta.id);
+    const newState = Object.assign({}, state);
+
+    switch (action.type) {
+        case request(UPDATE_SITE):
+            newState.items[index] = Object.assign({}, action.meta.site, {
+                isLoading: true,
+            });
+            break;
+        case resolve(UPDATE_SITE):
+            newState.items[index] = Object.assign(action.payload.site, {
+                isLoading: false,
+            });
+            break;
+        case reject(UPDATE_SITE):
+            newState.items[index] = Object.assign({}, action.meta.original);
+            break;
+        default:
+            return state;
+    }
+    return newState;
+};
+const createSite = (state, action) => {
+    const newState = Object.assign({}, state);
+
+    switch (action.type) {
+        case resolve(CREATE_SITE):
+            newState.items = [action.payload.site, ...newState.items];
+            break;
+        default:
+            return state;
+    }
+    return newState;
+};
+const deleteSite = (state, action) => {
+    const index = getIndexById(state.items, action.meta.site._id);
+    const newState = Object.assign({}, state);
+
+    switch (action.type) {
+        case resolve(DELETE_SITE):
+            newState.items.splice(index, 1);
+            break;
+        default:
+            return state;
+    }
+    return newState;
+};
 
 export const sitesList = (state: ISitesListState, action): ISitesListState => {
     if (!state) {
@@ -82,10 +122,19 @@ export const sitesList = (state: ISitesListState, action): ISitesListState => {
         }
     }
     if (containsType(action, GET_SITES)) {
-        return handleGetSitesList(state, action);
+        return getSitesList(state, action);
     }
     if (containsType(action, GET_SITE)) {
-        return handleGetSite(state, action);
+        return getSite(state, action);
+    }
+    if (containsType(action, UPDATE_SITE)) {
+        return updateSite(state, action);
+    }
+    if (containsType(action, CREATE_SITE)) {
+        return createSite(state, action);
+    }
+    if (containsType(action, DELETE_SITE)) {
+        return deleteSite(state, action);
     }
     return state;
 };

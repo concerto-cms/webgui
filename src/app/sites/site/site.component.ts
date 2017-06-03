@@ -13,16 +13,15 @@ export class SiteComponent implements OnInit, OnDestroy {
     siteSub;
   constructor(
       private sites: SitesService,
-      private route: ActivatedRoute,
   ) {
 
   }
 
   ngOnInit() {
 
-      this.$site = this.sites.getSite(this.route.snapshot.params.siteID);
+      this.$site = this.sites.getActiveSite();
       this.siteSub = this.$site.subscribe((site) => {
-          if (!site.name || !site.role) {
+          if (!site || !site.name || !site.role) {
               this.isInitialized = false;
               return;
           }

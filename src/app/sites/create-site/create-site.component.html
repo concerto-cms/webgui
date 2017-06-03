@@ -1,0 +1,14 @@
+<form #detailsForm="ngForm" (ngSubmit)="save()">
+    <h2 md-dialog-title>Create a new site</h2>
+    <md-dialog-content>
+        <md-input-container style="width: 100%">
+            <input mdInput placeholder="Site name" name="name" [(ngModel)]="site.name">
+        </md-input-container>
+
+    </md-dialog-content>
+    <md-dialog-actions>
+        <button md-button md-dialog-close>Cancel</button>
+        <!-- Can optionally provide a result for the closing dialog. -->
+        <button md-raised-button color="primary">Save</button>
+    </md-dialog-actions>
+</form>
