@@ -38,9 +38,7 @@ export class SitesService {
                     error: err,
                 })
             );
-        return this.ngRedux
-            .select('sites')
-            .map((state: ISitesState) => state.sitesList);
+        return this.getSitesListStream();
     }
 
     getSite(id) {

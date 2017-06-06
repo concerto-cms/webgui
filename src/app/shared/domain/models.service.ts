@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import {NgRedux} from '@angular-redux/store';
 import {ApiService} from '../api.service';
 import {request, reject, resolve} from 'redux-promised';
-import {GET_MODELS} from '../../store/actionTypes';
+import {GET_MODELS, SET_ACTIVE_MODEL, GET_MODEL} from '../../store/actionTypes';
 import {IModelsState} from '../../store/models/index';
 import {IAppState} from '../../store/index';
 import {SitesService} from './sites.service';
+import {Observable} from 'rxjs/Observable';
+import {IModelsListState} from '../../store/models/modelsList';
 
 @Injectable()
 export class ModelsService {
@@ -44,9 +46,77 @@ export class ModelsService {
 
         });
 
+        return this.getModelsStream();
+    }
+    getModelsStream() {
         return this.ngRedux
             .select('models')
             .map((state: IModelsState) => state.modelsList);
+
+
+    }
+    setActiveModel(id) {
+        this.ngRedux.dispatch({
+            type: SET_ACTIVE_MODEL,
+            payload: id,
+        });
+        if (id) {
+            this.getModel(id);
+        }
+
+    }
+    getModel(id) {
+        this.ngRedux.dispatch({
+            type: request(GET_MODEL),
+            meta: {
+                id,
+            },
+        });
+        this.sites.getActiveSite().filter(site => !!site).first().subscribe(site => {
+            this.api.get(`/sites/${site._id}/models/${id}`)
+                .map(result => {
+                    return result.json();
+                })
+                .subscribe(
+                    result => this.ngRedux.dispatch({
+                        type: resolve(GET_MODEL),
+                        meta: { id },
+                        payload: result
+                    }),
+                    err => this.ngRedux.dispatch({
+                        type: reject(GET_MODEL),
+                        meta: { id },
+                        error: err,
+                    })
+                );
+        });
+        return this.ngRedux
+            .select('sites')
+            .map((state: IModelsState) => state.modelsList.items)
+            .map(items => {
+                for (let model of items) {
+                    if (model._id === id) {
+                        return model;
+                    }
+                }
+                return null;
+            });
+    }
+    getActiveModel() {
+        const $activeSiteId = this.ngRedux
+            .select('sites')
+            .map((state: IModelsState) => state.activeModel);
+        return Observable.combineLatest([$activeSiteId, this.getModelsStream()])
+            .map((values) => {
+                const id = values[0];
+                const list: IModelsListState = values[1];
+                for (let item of list.items) {
+                    if (item._id === id) {
+                        return item;
+                    }
+                }
+                return null;
+            })
 
     }
 }
