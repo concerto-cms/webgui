@@ -1,0 +1,5 @@
+@import '../../../theme.scss';
+a.active {
+    background-color: mat-color(map-get($candy-app-theme, accent));
+    color: white;
+}

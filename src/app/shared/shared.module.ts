@@ -5,6 +5,7 @@ import {SharedRoutingModule} from './shared-routing.module';
 import {AuthService} from './auth.service';
 import {SitesService} from './domain/sites.service';
 import {ApiService} from './api.service';
+import {ModelsService} from './domain/models.service';
 
 @NgModule({
     imports: [
@@ -13,6 +14,6 @@ import {ApiService} from './api.service';
     ],
     declarations: [],
     exports: [SharedRoutingModule],
-    providers: [ApiService, AuthService, SitesService]
+    providers: [ApiService, AuthService, SitesService, ModelsService]
 })
 export class SharedModule {}

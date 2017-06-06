@@ -13,8 +13,10 @@ import {getItemById} from '../arrayUtils';
 
 @Injectable()
 export class SitesService {
-    constructor(private ngRedux: NgRedux<any>,
-                private api: ApiService,) {
+    constructor(
+        private ngRedux: NgRedux<any>,
+        private api: ApiService,
+    ) {
 
     }
 
