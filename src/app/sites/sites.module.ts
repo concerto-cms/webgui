@@ -7,6 +7,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {SiteComponent} from './site/site.component';
 import {CreateSiteComponent} from './create-site/create-site.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         SitesRoutingModule,
         MaterialModule,
         FormsModule,
+        SharedModule,
         ReactiveFormsModule,
     ],
     exports: [MaterialModule],

@@ -21,7 +21,7 @@ import {DevelopModule} from './develop/develop.module';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
     ],
     imports: [
         BrowserModule,

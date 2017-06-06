@@ -5,6 +5,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {MaterialModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '../shared/shared.module';
 
 const routes: Routes = [
     {path: ':siteID/manage', component: DashboardComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         MaterialModule,
         FormsModule,
+        SharedModule,
         ReactiveFormsModule,
     ],
     exports: [

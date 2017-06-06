@@ -1,29 +1,34 @@
 <md-spinner class="app-spinner" *ngIf="!isInitialized"></md-spinner>
-<md-card *ngIf="isInitialized && ($sites | async).items.length == 0" align-center>
-    <md-card-subtitle>You have no sites yet!</md-card-subtitle>
-    <md-card-content>
-        <button md-raised-button color="primary" (click)="openCreateDialog()">Create your first website</button>
-    </md-card-content>
-</md-card>
-<div *ngIf="isInitialized && ($sites | async).items.length > 0">
+<app-content>
 
-<p align-right>
-    <button mdTooltip="Create a new site" md-fab (click)="openCreateDialog()"><md-icon>add</md-icon></button>
-</p>
-<md-card>
-    <md-card-content>
-        <md-progress-bar mode="indeterminate" *ngIf="($sites | async).isLoading"></md-progress-bar>
-        <md-nav-list>
-            <ng-container *ngFor="let site of ($sites | async).items">
-                <a md-list-item [routerLink]="[site._id]">
-                    <i class="material-icons" md-list-icon>description</i>
-                    <h4 md-line><strong>{{site.name}}</strong></h4>
-                </a>
-            </ng-container>
-        </md-nav-list>
-    </md-card-content>
-    <md-card-actions>
-        <button md-button (click)="refresh()">Refresh</button>
-    </md-card-actions>
-</md-card>
-</div>
+    <md-card *ngIf="isInitialized && ($sites | async).items.length == 0" align-center>
+        <md-card-subtitle>You have no sites yet!</md-card-subtitle>
+        <md-card-content>
+            <button md-raised-button color="primary" (click)="openCreateDialog()">Create your first website</button>
+        </md-card-content>
+    </md-card>
+    <div *ngIf="isInitialized && ($sites | async).items.length > 0">
+
+        <p align-right>
+            <button mdTooltip="Create a new site" md-fab (click)="openCreateDialog()">
+                <md-icon>add</md-icon>
+            </button>
+        </p>
+        <md-card>
+            <md-card-content>
+                <md-progress-bar mode="indeterminate" *ngIf="($sites | async).isLoading"></md-progress-bar>
+                <md-nav-list>
+                    <ng-container *ngFor="let site of ($sites | async).items">
+                        <a md-list-item [routerLink]="[site._id]">
+                            <i class="material-icons" md-list-icon>description</i>
+                            <h4 md-line><strong>{{site.name}}</strong></h4>
+                        </a>
+                    </ng-container>
+                </md-nav-list>
+            </md-card-content>
+            <md-card-actions>
+                <button md-button (click)="refresh()">Refresh</button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</app-content>
