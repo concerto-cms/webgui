@@ -1,5 +1,9 @@
 # ConcertoCmsWebgui
 
+[![Travis](https://img.shields.io/travis/concerto-cms/webgui.svg?style=flat-square)](https://travis-ci.org/concerto-cms/webgui)
+[![Website](https://img.shields.io/website/http/concertocms.org.svg?label=concertocms.org&style=flat-square)](http://concertocms.org)
+[![license](https://img.shields.io/github/license/concerto-cms/webgui.svg?style=flat-square)](https://github.com/concerto-cms/webgui/blob/master/LICENSE)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.6.
 
 ## Development server
