@@ -1,11 +1,11 @@
 <app-develop-submenu></app-develop-submenu>
 <md-spinner class="app-spinner" *ngIf="!isInitialized"></md-spinner>
 <app-content  *ngIf="isInitialized">
-    <h1>{{($activeModel | async).name}}</h1>
+    <h1>{{($model | async).name}}</h1>
     <md-card>
         <md-progress-bar mode="indeterminate" *ngIf="($model | async).isLoading"></md-progress-bar>
         <p>
-            site works!
+            editing the model!
         </p>
     </md-card>
 </app-content>

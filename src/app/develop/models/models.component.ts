@@ -3,6 +3,7 @@ import {ISitesListState} from '../../store/sites/sitesList';
 import {MdDialog} from '@angular/material';
 import {ModelsService, SitesService} from '../../shared/domain';
 import {IModelsListState} from '../../store/models/modelsList';
+import {CreateModelComponent} from '../create-model/create-model.component';
 
 @Component({
     selector: 'app-develop-models',
@@ -23,6 +24,7 @@ export class ModelsComponent implements OnInit, OnDestroy {
         this.$isInitialized = this.$models.map((result: IModelsListState) => {
             return !result.isLoading || result.items.length > 0;
         });
+//        this.$models.subscribe();
     }
 
     ngOnInit() {
@@ -31,10 +33,8 @@ export class ModelsComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
     }
     openCreateDialog() {
-        /*
-        const dialog = this.dialog.open(CreateSiteComponent, {
+        const dialog = this.dialog.open(CreateModelComponent, {
 
         });
-         */
     }
 }

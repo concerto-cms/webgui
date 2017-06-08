@@ -1,3 +1,13 @@
-<p>
-  create-model works!
-</p>
+<form #detailsForm="ngForm" (ngSubmit)="save()">
+    <h2 md-dialog-title>Create a new model</h2>
+    <md-dialog-content>
+        <md-input-container style="width: 100%">
+            <input mdInput placeholder="Model name" name="name" [(ngModel)]="model.name">
+        </md-input-container>
+
+    </md-dialog-content>
+    <md-dialog-actions>
+        <button md-button md-dialog-close>Cancel</button>
+        <button md-raised-button color="primary">Save</button>
+    </md-dialog-actions>
+</form>

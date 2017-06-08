@@ -1,15 +1,13 @@
 import { request, reject, resolve } from 'redux-promised';
 import {GET_SITES, GET_SITE, UPDATE_SITE, CREATE_SITE, DELETE_SITE} from '../actionTypes';
 import { getIndexById } from '../../shared/arrayUtils';
+import { containsType } from '../utils';
+
 export interface ISitesListState {
     items: any[],
     isLoading: boolean,
     error?: any,
 }
-
-const containsType = (action, type) => {
-    return [request(type), reject(type), resolve(type)].includes(action.type);
-};
 
 const getSitesList = (state, action) => {
     switch (action.type) {

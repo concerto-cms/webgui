@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {NgRedux} from '@angular-redux/store';
 import {ApiService} from '../api.service';
 import {request, reject, resolve} from 'redux-promised';
-import {GET_MODELS, SET_ACTIVE_MODEL, GET_MODEL} from '../../store/actionTypes';
+import {GET_MODELS, SET_ACTIVE_MODEL, GET_MODEL, CREATE_MODEL} from '../../store/actionTypes';
 import {IModelsState} from '../../store/models/index';
 import {IAppState} from '../../store/index';
 import {SitesService} from './sites.service';
@@ -104,7 +104,7 @@ export class ModelsService {
     }
     getActiveModel() {
         const $activeSiteId = this.ngRedux
-            .select('sites')
+            .select('models')
             .map((state: IModelsState) => state.activeModel);
         return Observable.combineLatest([$activeSiteId, this.getModelsStream()])
             .map((values) => {
@@ -118,5 +118,37 @@ export class ModelsService {
                 return null;
             })
 
+    }
+    createModel(model) {
+        this.ngRedux.dispatch({
+            type: request(CREATE_MODEL),
+            meta: {
+                model,
+            },
+        });
+        return this.api.post(`/sites/${model.siteId}/models`, model)
+            .then(result => result.json())
+            .then(result => {
+                this.ngRedux.dispatch({
+                    type: resolve(CREATE_MODEL),
+                    payload: {
+                        model: result,
+                    },
+                    meta: {
+                        model,
+                    },
+                });
+                return result;
+            })
+            .catch(error => {
+                this.ngRedux.dispatch({
+                    type: reject(CREATE_MODEL),
+                    error,
+                    meta: {
+                        model,
+                    },
+                });
+
+            })
     }
 }

@@ -34,7 +34,6 @@ export class AuthService {
         return new Promise((resolve, reject) => {
             this.auth0.parseHash((err, authResult) => {
                 if (authResult && authResult.accessToken && authResult.idToken) {
-                    console.log(authResult);
                     window.location.hash = '';
                     this.setSession(authResult);
                     resolve(authResult);

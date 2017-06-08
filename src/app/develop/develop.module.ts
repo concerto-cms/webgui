@@ -11,6 +11,7 @@ import { BlocksComponent } from './blocks/blocks.component';
 import { EditBlockComponent } from './edit-block/edit-block.component';
 import { CreateBlockComponent } from './create-block/create-block.component';
 import {SharedModule} from '../shared/shared.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
     {path: ':siteID/develop', component: DashboardComponent},
@@ -22,6 +23,8 @@ const routes: Routes = [
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(routes),
         MaterialModule,
         SharedModule,
@@ -29,6 +32,7 @@ const routes: Routes = [
     exports: [
         RouterModule,
     ],
+    entryComponents: [CreateModelComponent],
     declarations: [DashboardComponent, ModelsComponent, SubmenuComponent, EditModelComponent, CreateModelComponent, BlocksComponent, EditBlockComponent, CreateBlockComponent]
 })
 export class DevelopModule {
