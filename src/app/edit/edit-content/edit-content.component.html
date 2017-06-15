@@ -1,0 +1,46 @@
+<app-content>
+    <h1>{{item.name}}</h1>
+</app-content>
+<md-spinner class="app-spinner" *ngIf="!($isInitialized | async)"></md-spinner>
+
+<md-tab-group *ngIf="$isInitialized | async">
+    <md-tab label="Summary">
+        <app-content>
+            <form #detailsForm="ngForm" (ngSubmit)="save()">
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="Item name" name="name" [(ngModel)]="item.name">
+                </md-input-container>
+                <p>
+                    Last modified: {{item.lastModified | date:'short'}}
+                </p>
+                <button md-raised-button color="primary">Save</button>
+            </form>
+        </app-content>
+    </md-tab>
+    <md-tab label="Webpage" *ngIf="($model | async).isWebpage">
+        <app-content>
+            <form #detailsForm="ngForm" (ngSubmit)="save()">
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="Title" name="title" [(ngModel)]="item.webpage.title">
+                </md-input-container>
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="URL" disabled name="url" [(ngModel)]="item.webpage.url">
+                </md-input-container>
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="Description" name="meta_description" [(ngModel)]="item.webpage.meta.description">
+                </md-input-container>
+                <button md-raised-button color="primary">Save</button>
+            </form>
+        </app-content>
+    </md-tab>
+    <md-tab label="Content">
+        <app-content>
+            <form #detailsForm="ngForm" (ngSubmit)="save()">
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="Model name" name="name" [(ngModel)]="item.name">
+                </md-input-container>
+                <button md-raised-button color="primary">Save</button>
+            </form>
+        </app-content>
+    </md-tab>
+</md-tab-group>

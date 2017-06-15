@@ -1,11 +1,36 @@
 <app-develop-submenu></app-develop-submenu>
 <md-spinner class="app-spinner" *ngIf="!isInitialized"></md-spinner>
-<app-content  *ngIf="isInitialized">
-    <h1>{{($model | async).name}}</h1>
-    <md-card>
-        <md-progress-bar mode="indeterminate" *ngIf="($model | async).isLoading"></md-progress-bar>
-        <p>
-            editing the model!
-        </p>
-    </md-card>
-</app-content>
+<div *ngIf="isInitialized">
+    <app-content>
+        <h1>{{($model | async).name}}</h1>
+    </app-content>
+    <md-tab-group>
+        <md-tab label="Details">
+            <app-content>
+                <form #detailsForm="ngForm" (ngSubmit)="save()">
+                    <md-input-container style="width: 100%">
+                        <input mdInput placeholder="Model name" name="name" [(ngModel)]="model.name">
+                    </md-input-container>
+                    <dl>
+                        <dt>Structure</dt>
+                        <dd>{{model.structure}}</dd>
+                        <dt>Webpage</dt>
+                        <dd>{{model.isWebpage ? 'Yes' : 'No'}}</dd>
+                    </dl>
+                    <button md-raised-button color="primary">Save</button>
+                </form>
+            </app-content>
+        </md-tab>
+        <md-tab label="Fields">
+            <app-content>
+                Fields are coming...
+            </app-content>
+        </md-tab>
+        <md-tab label="Danger">
+            <app-content>
+                <h3>Delete Model</h3>
+                <button md-raised-button color="warn" (click)="remove()">Delete</button>
+            </app-content>
+        </md-tab>
+    </md-tab-group>
+</div>

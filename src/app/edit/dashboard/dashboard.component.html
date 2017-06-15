@@ -1,3 +1,58 @@
-<p>
-  editor dashboard works!
-</p>
+<md-spinner class="app-spinner" *ngIf="!($isInitialized | async)"></md-spinner>
+    <md-tab-group *ngIf="$isInitialized | async">
+        <md-tab label="Sitemap">
+            <app-content>
+                <md-card *ngIf="($sitemapStream | async).length == 0" align-center>
+                    <md-card-subtitle>Your sitemap is still empty</md-card-subtitle>
+                    <md-card-content>Select a category and create your first webpage.</md-card-content>
+                </md-card>
+                <div *ngIf="($sitemapStream | async).length > 0">
+                    <md-card>
+                        <md-card-content>
+                            <md-nav-list>
+                                <ng-container *ngFor="let item of ($sitemapStream | async)">
+                                    <a md-list-item [routerLink]="[item._id]">
+                                        <i class="material-icons" md-list-icon>description</i>
+                                        <h4 md-line><strong>{{item.webpage.url}}</strong></h4>
+                                        <p md-line>{{item.name}}</p>
+                                    </a>
+                                </ng-container>
+                            </md-nav-list>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            </app-content>
+        </md-tab>
+        <ng-container *ngFor="let model of ($models | async).items">
+            <md-tab [label]="model.name">
+                <app-content>
+                    <md-card *ngIf="model.contentItems.length == 0" align-center>
+                        <md-card-subtitle>This category is empty</md-card-subtitle>
+                        <md-card-content>
+                            <button md-raised-button color="primary" (click)="openCreateDialog(model)">Create your first item</button>
+                        </md-card-content>
+                    </md-card>
+                    <div *ngIf="model.contentItems.length > 0">
+                        <p align-right>
+                            <button mdTooltip="Add an item" md-fab (click)="openCreateDialog(model)">
+                                <md-icon>add</md-icon>
+                            </button>
+                        </p>
+                        <md-card>
+                            <md-card-content>
+                                <md-nav-list>
+                                    <ng-container *ngFor="let item of model.contentItems">
+                                        <a md-list-item [routerLink]="[item._id]">
+                                            <i class="material-icons" md-list-icon>description</i>
+                                            <h4 md-line><strong>{{item.name}}</strong></h4>
+                                        </a>
+                                    </ng-container>
+                                </md-nav-list>
+                            </md-card-content>
+                        </md-card>
+                    </div>
+                </app-content>
+            </md-tab>
+
+        </ng-container>
+    </md-tab-group>

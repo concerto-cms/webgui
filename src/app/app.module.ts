@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
+import { LOCALE_ID } from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {SharedModule} from './shared/shared.module';
@@ -36,7 +37,9 @@ import {DevelopModule} from './develop/develop.module';
         EditModule,
         DevelopModule,
     ],
-    providers: [],
+    providers: [
+        { provide: LOCALE_ID, useValue: "nl-BE" }, //replace "en-US" with your locale
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -45,7 +48,7 @@ export class AppModule {
     ) {
 
         ngRedux.configureStore(rootReducer, this.getSessionStore(), [
-                createLogger({level: 'info', collapsed: false}),
+                createLogger({level: 'info', collapsed: true}),
                 thunk,
             ],
             devTools.isEnabled() ? [devTools.enhancer()] : []);

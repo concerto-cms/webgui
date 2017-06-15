@@ -3,6 +3,7 @@ import {NavigationEnd, Router} from '@angular/router';
 import {SitesService} from './shared/domain/sites.service';
 import {AuthService} from './shared/auth.service';
 import {ModelsService} from './shared/domain/models.service';
+import {ContentService} from './shared/domain/content.service';
 
 @Component({
     selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
     constructor(
         sites: SitesService,
         models: ModelsService,
+        content: ContentService,
         router: Router,
         private auth: AuthService,
     ) {
@@ -31,6 +33,9 @@ export class AppComponent {
         $routerParams.map((params) => params.modelID ? params.modelID : null)
             .distinctUntilChanged()
             .subscribe(id => models.setActiveModel(id));
+        $routerParams.map((params) => params.contentID ? params.contentID : null)
+            .distinctUntilChanged()
+            .subscribe(id => content.setActiveContentItem(id));
 
         sites.getActiveSite().subscribe(site => {
             if (!site || !site.name || !site.role) {

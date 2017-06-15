@@ -10,7 +10,10 @@ import {ModelsService} from '../../shared/domain/models.service';
 })
 export class CreateModelComponent implements OnInit, OnDestroy {
     isLoading = false;
-    model: any = {};
+    model: any = {
+        isWebpage: true,
+        structure: 'list',
+    };
     siteSub;
 
     constructor(

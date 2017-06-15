@@ -7,6 +7,7 @@ import {SitesService} from './domain/sites.service';
 import {ApiService} from './api.service';
 import {ModelsService} from './domain/models.service';
 import { ContentComponent } from './content/content.component';
+import {ContentService} from './domain/content.service';
 
 @NgModule({
     imports: [
@@ -15,6 +16,6 @@ import { ContentComponent } from './content/content.component';
     ],
     declarations: [ContentComponent],
     exports: [SharedRoutingModule, ContentComponent],
-    providers: [ApiService, AuthService, SitesService, ModelsService]
+    providers: [ApiService, AuthService, SitesService, ModelsService, ContentService]
 })
 export class SharedModule {}

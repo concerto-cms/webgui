@@ -1,9 +1,21 @@
 <form #detailsForm="ngForm" (ngSubmit)="save()">
     <h2 md-dialog-title>Create a new model</h2>
     <md-dialog-content>
-        <md-input-container style="width: 100%">
-            <input mdInput placeholder="Model name" name="name" [(ngModel)]="model.name">
-        </md-input-container>
+        <p>
+            <md-input-container style="width: 100%">
+                <input mdInput placeholder="Model name" name="name" [(ngModel)]="model.name">
+            </md-input-container>
+        </p>
+        <p>
+            <md-select name="structure" placeholder="Structure" [(ngModel)]="model.structure">
+                <md-option value="list">List of items</md-option>
+                <md-option disabled value="single">Single instance</md-option>
+                <md-option disabled value="tree">Tree hierarchy</md-option>
+            </md-select>
+        </p>
+        <p>
+            <md-slide-toggle name="isWebpage" [(ngModel)]="model.isWebpage">Webpage enabled</md-slide-toggle>
+        </p>
 
     </md-dialog-content>
     <md-dialog-actions>

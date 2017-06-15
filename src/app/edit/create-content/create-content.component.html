@@ -1,0 +1,22 @@
+<form #detailsForm="ngForm" (ngSubmit)="save()">
+    <h2 md-dialog-title>Create a new item ({{model.name}})</h2>
+    <md-dialog-content>
+        <p>
+            <md-input-container style="width: 100%">
+                <input mdInput placeholder="Name" name="name" [(ngModel)]="item.name">
+            </md-input-container>
+        </p>
+        <div *ngIf="model.isWebpage">
+            <p>
+                <md-input-container style="width: 100%">
+                    <input mdInput placeholder="Url" name="url" [(ngModel)]="item.webpage.url">
+                </md-input-container>
+            </p>
+
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <button md-button md-dialog-close>Cancel</button>
+        <button md-raised-button color="primary">Save</button>
+    </md-dialog-actions>
+</form>
