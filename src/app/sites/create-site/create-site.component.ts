@@ -8,7 +8,7 @@ import {SitesService} from '../../shared/domain/sites.service';
     styleUrls: ['./create-site.component.css']
 })
 export class CreateSiteComponent implements OnInit {
-    site = {};
+    site: any = {};
     isLoading = false;
 
     constructor(

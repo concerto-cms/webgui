@@ -7,7 +7,7 @@ import auth0 from 'auth0-js';
 export const AUTH_CONFIG = {
     clientID: 'haJL6bii64RjVYaLpWiOcBOkhOUmmam9',
     domain: 'concerto.eu.auth0.com',
-    callbackURL: 'http://localhost:3000/'
+//    callbackURL: 'http://localhost:3000/'
 };
 let profile = null;
 
@@ -21,7 +21,7 @@ export class AuthService {
 
             responseType: 'token id_token',
 //          audience: 'https://concerto.eu.auth0.com/userinfo',
-            redirectUri: config.callbackURL,
+            redirectUri: window.location.origin,
             scope: 'openid profile eail'
         });
     }

@@ -12,7 +12,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class EditContentComponent implements OnInit, OnDestroy {
 
-    item = {};
+    item: any = {};
     $model;
     $site;
     $contentItem;
