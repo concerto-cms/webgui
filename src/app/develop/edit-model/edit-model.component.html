@@ -23,7 +23,41 @@
         </md-tab>
         <md-tab label="Fields">
             <app-content>
-                Fields are coming...
+                <md-card *ngIf="model.fields.length == 0" align-center>
+                    <md-card-subtitle>This models has no fields yet!</md-card-subtitle>
+                    <md-card-content>
+                        <button md-raised-button color="primary" (click)="addField()">Add your first field</button>
+                    </md-card-content>
+                </md-card>
+                <div *ngIf="model.fields.length > 0">
+
+                    <p align-right>
+                        <button mdTooltip="Add a field" md-fab (click)="addField()">
+                            <md-icon>add</md-icon>
+                        </button>
+                    </p>
+                    <md-list>
+                        <ng-container *ngFor="let field of model.fields">
+                            <div [class.mat-elevation-z1]="activeField === field">
+                                <button class="field-toggle" md-button type="button" (click)="setActiveField(field)">{{field.name}}</button>
+                                <app-content *ngIf="activeField === field">
+                                    <dl>
+                                        <dt>Type</dt>
+                                        <dd>{{field.type}}</dd>
+                                    </dl>
+                                    <form #fieldsForm="ngForm">
+                                        <md-input-container style="width: 100%">
+                                            <input mdInput placeholder="Label" name="label" [(ngModel)]="field.label">
+                                        </md-input-container>
+                                    </form>
+                                </app-content>
+                            </div>
+                        </ng-container>
+                    </md-list>
+                    <p>
+                        <button md-raised-button color="primary" (click)="save()" type="button">Save</button>
+                    </p>
+                </div>
             </app-content>
         </md-tab>
         <md-tab label="Danger">

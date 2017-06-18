@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import {NgRedux} from '@angular-redux/store';
 import {ApiService} from '../api.service';
 import {request, reject, resolve} from 'redux-promised';
-import {GET_MODELS, SET_ACTIVE_MODEL, GET_MODEL, CREATE_MODEL, DELETE_MODEL} from '../../store/actionTypes';
+import {
+    GET_MODELS, SET_ACTIVE_MODEL, GET_MODEL, CREATE_MODEL, DELETE_MODEL,
+    UPDATE_MODEL
+} from '../../store/actionTypes';
 import {IModelsState} from '../../store/models/index';
 import {IAppState} from '../../store/index';
 import {SitesService} from './sites.service';
 import {Observable} from 'rxjs/Observable';
 import {IModelsListState} from '../../store/models/modelsList';
+import {getItemById} from '../arrayUtils';
 
 @Injectable()
 export class ModelsService {
@@ -184,6 +188,40 @@ export class ModelsService {
                     error,
                     meta: {
                         model,
+                    },
+                });
+            })
+    }
+    updateModel(model) {
+        const original = getItemById(this.ngRedux.getState().models.modelsList.items, model._id);
+        this.ngRedux.dispatch({
+            type: request(UPDATE_MODEL),
+            meta: {
+                model,
+            },
+        });
+        return this.api.put(`/sites/${model.siteId}/models/${model._id}`, model)
+            .then(result => result.json())
+            .then(result => {
+                this.ngRedux.dispatch({
+                    type: resolve(UPDATE_MODEL),
+                    payload: {
+                        model: result,
+                    },
+                    meta: {
+                        id: model._id,
+                        model,
+                    },
+                });
+                return result;
+            })
+            .catch(error => {
+                this.ngRedux.dispatch({
+                    type: reject(UPDATE_MODEL),
+                    error,
+                    meta: {
+                        model,
+                        original,
                     },
                 });
 

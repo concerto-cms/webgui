@@ -1,0 +1,24 @@
+<form #detailsForm="ngForm" (ngSubmit)="save()">
+    <h2 md-dialog-title>Add a field</h2>
+    <md-dialog-content>
+        <p>
+            <md-input-container>
+                <input required mdInput placeholder="Field name" name="name" [(ngModel)]="field.name">
+            </md-input-container>
+        </p>
+        <p>
+            <md-select name="type" placeholder="Type" [(ngModel)]="field.type">
+                <md-option value="text-single">Text (Single line)</md-option>
+                <md-option value="text-multi">Text (Multi-line)</md-option>
+                <md-option value="markdown">Markdown</md-option>
+                <md-option value="content">Content</md-option>
+                <md-option value="itemlist">List of items</md-option>
+                <md-option value="location">Location</md-option>
+            </md-select>
+        </p>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <button md-button md-dialog-close>Cancel</button>
+        <button md-raised-button color="primary">Save</button>
+    </md-dialog-actions>
+</form>

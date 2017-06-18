@@ -12,6 +12,7 @@ import { EditBlockComponent } from './edit-block/edit-block.component';
 import { CreateBlockComponent } from './create-block/create-block.component';
 import {SharedModule} from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CreateFieldComponent } from './create-field/create-field.component';
 
 const routes: Routes = [
     {path: ':siteID/develop', component: DashboardComponent},
@@ -32,8 +33,8 @@ const routes: Routes = [
     exports: [
         RouterModule,
     ],
-    entryComponents: [CreateModelComponent],
-    declarations: [DashboardComponent, ModelsComponent, SubmenuComponent, EditModelComponent, CreateModelComponent, BlocksComponent, EditBlockComponent, CreateBlockComponent]
+    entryComponents: [CreateModelComponent, CreateFieldComponent],
+    declarations: [DashboardComponent, ModelsComponent, SubmenuComponent, EditModelComponent, CreateModelComponent, BlocksComponent, EditBlockComponent, CreateBlockComponent, CreateFieldComponent]
 })
 export class DevelopModule {
 }

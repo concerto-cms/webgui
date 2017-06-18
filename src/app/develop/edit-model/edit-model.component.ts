@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ModelsService} from '../../shared/domain/models.service';
 import {Router} from '@angular/router';
+import {MdDialog} from '@angular/material';
+import {CreateFieldComponent} from '../create-field/create-field.component';
 
 @Component({
     selector: 'app-edit-model',
@@ -10,12 +12,16 @@ import {Router} from '@angular/router';
 export class EditModelComponent implements OnInit, OnDestroy {
 
     $model;
-    model: any = {};
+    model: any = {
+        fields: [],
+    };
     isInitialized = false;
     modelSub;
+    activeField = null;
     constructor(
         private models: ModelsService,
         private router: Router,
+        private dialog: MdDialog,
     ) {
         this.$model = models.getActiveModel();
     }
@@ -41,6 +47,21 @@ export class EditModelComponent implements OnInit, OnDestroy {
             this.router.navigate(['/', this.model.siteId, 'develop', 'models']);
         });
 
+    }
+
+    addField() {
+        const dialog = this.dialog.open(CreateFieldComponent, {
+        }).afterClosed().filter(field => !!field).subscribe(field => {
+            this.model.fields.push(field);
+            this.setActiveField(field);
+        });
+    }
+
+    save() {
+        this.models.updateModel(this.model);
+    }
+    setActiveField(field) {
+        this.activeField = field;
     }
 
 }
