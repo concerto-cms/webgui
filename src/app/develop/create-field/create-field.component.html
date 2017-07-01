@@ -8,12 +8,12 @@
         </p>
         <p>
             <md-select name="type" placeholder="Type" [(ngModel)]="field.type">
-                <md-option value="text-single">Text (Single line)</md-option>
-                <md-option value="text-multi">Text (Multi-line)</md-option>
-                <md-option value="markdown">Markdown</md-option>
-                <md-option value="content">Content</md-option>
-                <md-option value="itemlist">List of items</md-option>
-                <md-option value="location">Location</md-option>
+                <md-option [value]="fieldTypes.FIELD_TEXT_SINGLE">Text (Single line)</md-option>
+                <md-option [value]="fieldTypes.FIELD_TEXT_MULTI">Text (Multi-line)</md-option>
+                <md-option [value]="fieldTypes.FIELD_MARKDOWN">Markdown</md-option>
+                <md-option [value]="fieldTypes.FIELD_CONTENT">Content</md-option>
+                <md-option [value]="fieldTypes.FIELD_ITEMLIST">List of items</md-option>
+                <md-option [value]="fieldTypes.LOCATION">Location</md-option>
             </md-select>
         </p>
     </md-dialog-content>

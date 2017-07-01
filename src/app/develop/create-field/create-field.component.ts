@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {MdDialogRef} from '@angular/material';
-
+import * as types from '../../edit/fields';
 @Component({
     selector: 'app-create-field',
     templateUrl: './create-field.component.html',
     styleUrls: ['./create-field.component.css']
 })
 export class CreateFieldComponent implements OnInit {
+    fieldTypes;
 
     field = {
         type: null,
@@ -17,6 +18,7 @@ export class CreateFieldComponent implements OnInit {
     constructor(
         private dialogRef: MdDialogRef<CreateFieldComponent>,
     ) {
+        this.fieldTypes = types;
     }
 
     ngOnInit() {

@@ -27,19 +27,31 @@
                     <input mdInput placeholder="URL" disabled name="url" [(ngModel)]="item.webpage.url">
                 </md-input-container>
                 <md-input-container style="width: 100%">
-                    <input mdInput placeholder="Description" name="meta_description" [(ngModel)]="item.webpage.meta.description">
+                    <input mdInput placeholder="Description" name="meta_description"
+                           [(ngModel)]="item.webpage.meta.description">
                 </md-input-container>
                 <button md-raised-button color="primary">Save</button>
             </form>
         </app-content>
     </md-tab>
-    <md-tab label="Content">
+    <md-tab label="Content" *ngIf="($model | async).fields.length > 0">
         <app-content>
             <form #detailsForm="ngForm" (ngSubmit)="save()">
-                <md-input-container style="width: 100%">
-                    <input mdInput placeholder="Model name" name="name" [(ngModel)]="item.name">
-                </md-input-container>
-                <button md-raised-button color="primary">Save</button>
+                <ng-container *ngFor="let field of ($model | async).fields">
+                    <ng-container [ngSwitch]="field.type">
+                        <ng-container *ngSwitchCase="fields.FIELD_TEXT_SINGLE">
+                            <app-field-text-single [field]="field" [value]="item.data[field.name]" (valueChange)="changeData($event)"></app-field-text-single>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                            <div>
+                                <strong>{{field.label}}</strong> | {{field.name}} | {{field.type}}
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+                <p>
+                    <button md-raised-button color="primary">Save</button>
+                </p>
             </form>
         </app-content>
     </md-tab>

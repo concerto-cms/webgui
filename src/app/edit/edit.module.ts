@@ -7,6 +7,7 @@ import {MaterialModule} from '@angular/material';
 import { CreateContentComponent } from './create-content/create-content.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EditContentComponent } from './edit-content/edit-content.component';
+import { TextSingleComponent } from './fields/text-single/text-single.component';
 
 const routes: Routes = [
     {path: ':siteID/edit', component: DashboardComponent},
@@ -24,7 +25,7 @@ const routes: Routes = [
     ],
     exports: [RouterModule],
     entryComponents: [CreateContentComponent],
-    declarations: [DashboardComponent, CreateContentComponent, EditContentComponent],
+    declarations: [DashboardComponent, CreateContentComponent, EditContentComponent, TextSingleComponent],
 })
 export class EditModule {
 }
