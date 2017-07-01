@@ -5,6 +5,7 @@
         <md-card-subtitle>You have no models for this project yet!</md-card-subtitle>
         <md-card-content>
             <button md-raised-button color="primary" (click)="openCreateDialog()">Create your first model</button>
+            <button md-button (click)="createCommonModels()">Create common models</button>
         </md-card-content>
     </md-card>
     <div *ngIf="($isInitialized | async) && ($models | async).items.length > 0">

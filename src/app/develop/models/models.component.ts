@@ -33,7 +33,37 @@ export class ModelsComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
     }
     openCreateDialog() {
-        const dialog = this.dialog.open(CreateModelComponent, {
+        const dialog = this.dialog.open(CreateModelComponent);
+    }
+    createCommonModels() {
+        this.sites.getActiveSite().first().subscribe(site => {
+            const siteId = site._id;
+            this.models.createModel({
+                name: "Webpage",
+                siteId: siteId,
+                structure: "list",
+                isWebpage: true,
+                fields: []
+
+            });
+            this.models.createModel({
+                name: "Menu",
+                siteId: siteId,
+                structure: "list",
+                isWebpage: false,
+                fields: [
+                    {
+                        type: "text-single",
+                        name: "label",
+                        label: "Label"
+                    },
+                    {
+                        type: "text-single",
+                        name: "url",
+                        label: "Url"
+                    }
+                ]
+            });
 
         });
     }
