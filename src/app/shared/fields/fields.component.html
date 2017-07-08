@@ -1,0 +1,33 @@
+<md-card *ngIf="fields.length == 0" align-center>
+    <md-card-subtitle>No fields!</md-card-subtitle>
+    <md-card-content>
+        <button md-raised-button color="primary" (click)="addField()">Add your first field</button>
+    </md-card-content>
+</md-card>
+<form #fieldsForm="ngForm" *ngIf="fields.length > 0">
+    <p align-right>
+        <button mdTooltip="Add a field" md-fab (click)="addField()">
+            <md-icon>add</md-icon>
+        </button>
+    </p>
+    <div class="mat-elevation-z1">
+        <md-card-content>
+            <ng-container *ngFor="let field of fields">
+                <div class="app-fields__item" [class.app-fields__item--active]="activeField === field">
+                    <button class="app-fields__toggle" md-button type="button" (click)="setActiveField(field)">{{field.name}} <md-icon>expand_more</md-icon></button>
+                    <app-content class="app-fields__content">
+                        <dl>
+                            <dt>Type</dt>
+                            <dd>{{field.type}}</dd>
+                        </dl>
+                        <form #fieldsForm="ngForm">
+                            <md-input-container style="width: 100%">
+                                <input mdInput placeholder="Label" name="label" [(ngModel)]="field.label">
+                            </md-input-container>
+                        </form>
+                    </app-content>
+                </div>
+            </ng-container>
+        </md-card-content>
+    </div>
+</form>

@@ -1,0 +1,35 @@
+:host {
+    .app-fields {
+        &__content {
+            display: none;
+        }
+        &__toggle {
+            background-color: #eee;
+            width: 100%;
+            border-radius:0;
+            text-align: left;
+            md-icon {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+
+                transform: translateY(-50%) rotate(0deg);
+                transition: all 0.5s;
+            }
+        }
+        &__item {
+            &--active {
+                .app-fields {
+                    &__content {
+                        display: block;
+                    }
+                    &__toggle {
+                        md-icon {
+                            transform: translateY(-50%) rotate(180deg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
