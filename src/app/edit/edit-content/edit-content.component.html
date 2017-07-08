@@ -42,6 +42,9 @@
                         <ng-container *ngSwitchCase="fields.FIELD_TEXT_SINGLE">
                             <app-field-text-single [field]="field" [value]="item.data[field.name]" (valueChange)="changeData($event)"></app-field-text-single>
                         </ng-container>
+                        <ng-container *ngSwitchCase="fields.FIELD_TEXT_MULTI">
+                            <app-field-text-multi [field]="field" [value]="item.data[field.name]" (valueChange)="changeData($event)"></app-field-text-multi>
+                        </ng-container>
                         <ng-container *ngSwitchDefault>
                             <div>
                                 <strong>{{field.label}}</strong> | {{field.name}} | {{field.type}}
