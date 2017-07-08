@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CreateFieldComponent} from '../../develop/create-field/create-field.component';
 import {MdDialog} from '@angular/material';
+import * as types from '../../edit/fields';
 
 @Component({
     selector: 'app-fields',
@@ -14,6 +15,7 @@ export class FieldsComponent implements OnInit {
 
     @Input() fields = [];
     activeField = null;
+    fieldTypes = types;
 
     ngOnInit() {
     }

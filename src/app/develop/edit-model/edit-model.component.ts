@@ -19,7 +19,22 @@ export class EditModelComponent implements OnInit, OnDestroy {
         private models: ModelsService,
         private router: Router,
     ) {
-        this.$model = models.getActiveModel();
+        this.$model = models.getActiveModel().map(model => {
+            if (!model) {
+                return null;
+            }
+            if (typeof model.fields === 'undefined') {
+                model.fields = [];
+                return model;
+            }
+            model.fields.map(field => {
+                if (typeof field.options === 'undefined') {
+                    field.options = {};
+                }
+                return field;
+            });
+            return model;
+        });
     }
 
     ngOnInit() {

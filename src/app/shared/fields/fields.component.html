@@ -14,7 +14,7 @@
         <md-card-content>
             <ng-container *ngFor="let field of fields">
                 <div class="app-fields__item" [class.app-fields__item--active]="activeField === field">
-                    <button class="app-fields__toggle" md-button type="button" (click)="setActiveField(field)">{{field.name}} <md-icon>expand_more</md-icon></button>
+                    <button class="app-fields__toggle" md-button type="button" (click)="setActiveField(field)">{{field.label}} <small monospace>[{{field.name}}]</small> <md-icon>expand_more</md-icon></button>
                     <app-content class="app-fields__content">
                         <dl>
                             <dt>Type</dt>
@@ -24,6 +24,7 @@
                             <md-input-container style="width: 100%">
                                 <input mdInput placeholder="Label" name="label" [(ngModel)]="field.label">
                             </md-input-container>
+                            <md-checkbox name="required" [(ngModel)]="field.options.required" *ngIf="field.type === fieldTypes.FIELD_TEXT_SINGLE">Required</md-checkbox>
                         </form>
                     </app-content>
                 </div>

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ApiService {
-  private baseUrl = 'http://concerto.testlocatie.be/mgmt/v1';
+  private baseUrl = 'http://web.api.docker/mgmt/v1';
 
   constructor(
     private http: Http,

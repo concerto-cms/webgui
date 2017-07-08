@@ -13,6 +13,7 @@ export class CreateFieldComponent implements OnInit {
         type: null,
         name: '',
         label: '',
+        options: {},
     };
 
     constructor(
