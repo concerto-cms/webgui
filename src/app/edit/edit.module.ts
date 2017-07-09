@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EditContentComponent } from './edit-content/edit-content.component';
 import { TextSingleComponent } from './fields/text-single/text-single.component';
 import { TextMultiComponent } from './fields/text-multi/text-multi.component';
+import { TextHtmlComponent } from './fields/text-html/text-html.component';
 
 const routes: Routes = [
     {path: ':siteID/edit', component: DashboardComponent},
@@ -26,7 +27,7 @@ const routes: Routes = [
     ],
     exports: [RouterModule],
     entryComponents: [CreateContentComponent],
-    declarations: [DashboardComponent, CreateContentComponent, EditContentComponent, TextSingleComponent, TextMultiComponent],
+    declarations: [DashboardComponent, CreateContentComponent, EditContentComponent, TextSingleComponent, TextMultiComponent, TextHtmlComponent],
 })
 export class EditModule {
 }
